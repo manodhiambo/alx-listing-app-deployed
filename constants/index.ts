@@ -365,3 +365,5 @@ export const PROPERTYLISTINGSAMPLE: PropertyProps[] = [
     discount: ""
   }
 ];
+
+export const DEFAULT_PROPERTY_IMAGE = '/images/default-property.jpg';
