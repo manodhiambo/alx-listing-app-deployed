@@ -1,7 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+// Define the review type
+interface Review {
+  id: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+}
+
+// Define the reviews data type with index signature
+interface ReviewsData {
+  [key: string]: Review[];
+}
+
 // Mock reviews data
-const mockReviews = {
+const mockReviews: ReviewsData = {
   '1': [
     {
       id: 'r1',
@@ -46,11 +62,12 @@ const mockReviews = {
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-
+  
   if (req.method === 'GET') {
     // Simulate network delay
     setTimeout(() => {
-      const reviews = mockReviews[id as string] || [];
+      const propertyId = Array.isArray(id) ? id[0] : id;
+      const reviews = mockReviews[propertyId || ''] || [];
       res.status(200).json(reviews);
     }, 600);
   } else {
